@@ -1,9 +1,9 @@
 pipeline {
   agent any
     environment {
-        registry = "eduarte/jenkins"
-        registryCredential = 'dockerhub_id'
-        dockerImage = 'linux-tweet-app'
+        registry = "eduarte/linux-tweet-app"
+        registryCredential = 'dockerhub_id'        
+        dockerImage = ''
       }
 
     stages {
