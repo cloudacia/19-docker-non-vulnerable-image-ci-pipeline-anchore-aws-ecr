@@ -3,7 +3,7 @@ pipeline {
     environment {
         registry = "eduarte/jenkins"
         registryCredential = 'dockerhub_id'
-        dockerImage = ''
+        dockerImage = 'linux-tweet-app'
       }
 
     stages {
