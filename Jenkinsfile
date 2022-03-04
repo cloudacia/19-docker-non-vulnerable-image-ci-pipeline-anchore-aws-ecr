@@ -1,7 +1,7 @@
 pipeline {
   agent any
     environment {
-        registry = "YourDockerhubAccount/YourRepository"
+        registry = "eduarte/jenkins"
         registryCredential = 'dockerhub_id'
         dockerImage = ''
       }
@@ -9,7 +9,7 @@ pipeline {
     stages {
       stage('Cloning our Git') {
         steps {
-          git 'https://github.com/YourGithubAccount/YourGithubRepository.git'
+          git 'https://github.com/cloudacia/linux_tweet_app.git'
           }
         }
         stage('Building our image') {
