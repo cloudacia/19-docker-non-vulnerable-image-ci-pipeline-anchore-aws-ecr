@@ -2,14 +2,14 @@ pipeline {
   agent any
     environment {
         registry = "eduarte/linux-tweet-app"
-        registryCredential = 'dockerhub_id'
-        dockerImage = ''
+        registryCredential = "dockerhub_id"
+        targetRepo = "https://github.com/cloudacia/linux_tweet_app.git"
       }
 
     stages {
-      stage('Cloning our Git') {
+      stage('Cloning GIT repositry') {
         steps {
-          git 'https://github.com/cloudacia/linux_tweet_app.git'
+          git "$targetRepo"
         }
       }
 
@@ -20,7 +20,7 @@ pipeline {
         }
       }
 
-      stage('usernamePassword') {
+      stage('Dockerhub login') {
       steps {
         script {
           withCredentials([
@@ -29,26 +29,22 @@ pipeline {
               passwordVariable: 'password')
           ]) {
             sh "docker login -u $username -p $password"
-            sh "docker push $registry:$BUILD_NUMBER"
-
           }
         }
       }
     }
 
-      //stage('Deploy our image') {
-      //  steps {
-      //    script
-            //sh "docker login -u eduarte -p eugenio23"
-            //sh "docker push $registry:$BUILD_NUMBER"
-    //      }
-    //    }
-    //  }
+    stage('Push image'){
+      steps {
+        sh "docker push $registry:$BUILD_NUMBER"
+      }
+    }
 
-      stage('Cleaning up') {
-        steps {
-          sh "docker rmi $registry:$BUILD_NUMBER"
-        }
+
+    stage('Cleaning up') {
+      steps {
+        sh "docker rmi $registry:$BUILD_NUMBER"
       }
     }
   }
+}
