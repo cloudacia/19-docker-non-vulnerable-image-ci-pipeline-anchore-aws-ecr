@@ -22,11 +22,8 @@ pipeline {
 
       stage('Deploy our image') {
         steps {
-          script {
-            docker.withRegistry( '', registryCredential ) {
-              dockerImage.push()
-            }
-          }
+          sh "docker login -u eduarte  -p eugenio23"
+          sh "docker push $registry:$BUILD_NUMBER"
         }
       }
 
