@@ -13,38 +13,37 @@ pipeline {
         }
       }
 
-      stage('Building our image') {
+      stage('Building docker image') {
         steps {
           sh "docker build -t $registry:$BUILD_NUMBER ."
-
         }
       }
 
-      stage('Dockerhub login') {
-      steps {
-        script {
-          withCredentials([
-            usernamePassword(credentialsId: "$registryCredential",
-              usernameVariable: 'username',
-              passwordVariable: 'password')
-          ]) {
-            sh "docker login -u $username -p $password"
+      stage('Login dockerhub') {
+        steps {
+          script {
+            withCredentials([
+              usernamePassword(
+                credentialsId: "$registryCredential",
+                usernameVariable: 'username',
+                passwordVariable: 'password')
+                ]) {
+                  sh "docker login -u $username -p $password"
+                  }
+                }
+              }
+            }
+
+      stage('Pushing docker image'){
+        steps {
+          sh "docker push $registry:$BUILD_NUMBER"
+          }
+        }
+
+      stage('Cleaning up') {
+        steps {
+          sh "docker rmi $registry:$BUILD_NUMBER"
           }
         }
       }
     }
-
-    stage('Push image'){
-      steps {
-        sh "docker push $registry:$BUILD_NUMBER"
-      }
-    }
-
-
-    stage('Cleaning up') {
-      steps {
-        sh "docker rmi $registry:$BUILD_NUMBER"
-      }
-    }
-  }
-}
