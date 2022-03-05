@@ -28,7 +28,7 @@ pipeline {
               usernameVariable: 'username',
               passwordVariable: 'password')
           ]) {
-            sh "docker login -u + $username -p $password"
+            sh "docker login -u $username -p $password"
             sh "docker push $registry:$BUILD_NUMBER"
 
           }
