@@ -20,10 +20,29 @@ pipeline {
         }
       }
 
-      stage('Deploy our image') {
-        steps {
-          sh "docker login -u eduarte  -p eugenio23"
-          sh "docker push $registry:$BUILD_NUMBER"
+      stage('usernamePassword') {
+      steps {
+        script {
+          withCredentials([
+            usernamePassword(credentialsId: 'dockerhub_id',
+              usernameVariable: 'username',
+              passwordVariable: 'password')
+          ]) {
+            print 'username=' + username + 'password=' + password
+
+            print 'username.collect { it }=' + username.collect { it }
+            print 'password.collect { it }=' + password.collect { it }
+          }
+        }
+      }
+    }
+
+      //stage('Deploy our image') {
+      //  steps {
+      //    script
+            //sh "docker login -u eduarte -p eugenio23"
+            //sh "docker push $registry:$BUILD_NUMBER"
+          }
         }
       }
 
