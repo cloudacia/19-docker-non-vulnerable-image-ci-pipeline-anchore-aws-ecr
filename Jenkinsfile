@@ -24,7 +24,7 @@ pipeline {
       steps {
         script {
           withCredentials([
-            usernamePassword(credentialsId: 'dockerhub_id',
+            usernamePassword(credentialsId: "$registryCredential",
               usernameVariable: 'username',
               passwordVariable: 'password')
           ]) {
