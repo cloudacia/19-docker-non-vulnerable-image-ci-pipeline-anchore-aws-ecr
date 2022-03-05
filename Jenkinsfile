@@ -42,9 +42,9 @@ pipeline {
       //    script
             //sh "docker login -u eduarte -p eugenio23"
             //sh "docker push $registry:$BUILD_NUMBER"
-          }
-        }
-      }
+    //      }
+    //    }
+    //  }
 
       stage('Cleaning up') {
         steps {
