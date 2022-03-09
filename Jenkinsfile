@@ -32,7 +32,7 @@ pipeline {
       }
     }
 
-    stage('Removing image') {
+    stage('Remove image') {
       steps {
         sh 'docker image rmi $registry:$BUILD_NUMBER'
       }
@@ -55,11 +55,12 @@ pipeline {
         }
       }
     }
-    stage('Push Scanned image as a trusted') {
+
+    stage('Push scanned image') {
       steps {
         script {
           docker.withRegistry( '', registryCredential ) {
-          image.push('trusted')  
+          image.push('trusted')
           }
         }
       }
