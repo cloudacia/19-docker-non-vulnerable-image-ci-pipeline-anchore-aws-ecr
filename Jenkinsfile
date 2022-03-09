@@ -45,5 +45,15 @@ pipeline {
       }
     }
 
+    stage('Push Trusted Image') {
+      steps {
+        script {
+          docker.withRegistry( '', registryCredential ) {
+            image = docker.image(registry + ":$BUILD_NUMBER")
+            image.pull()
+          }
+        }
+      }
+    }
   }
 }
