@@ -45,12 +45,21 @@ pipeline {
       }
     }
 
-    stage('Push Trusted Image') {
+    stage('Pull scanned image') {
       steps {
         script {
           docker.withRegistry( '', registryCredential ) {
             image = docker.image(registry + ":$BUILD_NUMBER")
             image.pull()
+          }
+        }
+      }
+    }
+    stage('Push Scanned image as a trusted') {
+      steps {
+        script {
+          docker.withRegistry( '', registryCredential ) {
+          image.push('linux-tweet-app-tusted')  
           }
         }
       }
