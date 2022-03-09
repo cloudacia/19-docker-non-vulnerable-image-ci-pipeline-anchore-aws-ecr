@@ -4,6 +4,7 @@ pipeline {
         registry = "eduarte/linux-tweet-app"
         registryCredential = "dockerhub_id"
         targetRepo = "https://github.com/cloudacia/linux_tweet_app.git"
+        imageLine = 'docker.io/eduarte/linux-tweet-app'
       }
 
     stages {
@@ -39,6 +40,13 @@ pipeline {
           sh "docker push $registry:$BUILD_NUMBER"
           }
         }
+
+        tage('Anallyze image with Anchore'){
+        steps {
+          writeFile file: 'anchore_images', text: imageLine + '-trusted' + ":$BUILD_NUMBER"
+          anchore name: 'anchore_images'
+        }
+      }
 
       stage('Cleaning up') {
         steps {
