@@ -59,7 +59,7 @@ pipeline {
       steps {
         script {
           docker.withRegistry( '', registryCredential ) {
-          image.push('linux-tweet-app-tusted')  
+          image.push('trusted')  
           }
         }
       }
