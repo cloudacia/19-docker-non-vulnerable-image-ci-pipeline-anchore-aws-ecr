@@ -2,7 +2,7 @@ pipeline {
   agent any
     environment {
         registry = "eduarte/linux-tweet-app"
-        registryCredential = "dockerhub_id"
+        registryCredential = "dockerhub-registry"
         targetRepo = "https://github.com/cloudacia/linux_tweet_app.git"
         imageLine = 'docker.io/eduarte/linux-tweet-app'
       }
