@@ -41,7 +41,7 @@ pipeline {
           }
         }
 
-        tage('Anallyze image with Anchore'){
+      stage('Anallyze image with Anchore'){
         steps {
           writeFile file: 'anchore_images', text: imageLine + '-trusted' + ":$BUILD_NUMBER"
           anchore name: 'anchore_images'
