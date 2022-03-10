@@ -1,6 +1,6 @@
 pipeline {
   environment {
-    registryCredential = 'cloudacia-dev'
+    registryCredential = 'ecr:cloudacia-dev'
     registry = 'eduarte/linux-tweet-app'
     dockerImage = ''
     imageLine = 'docker.io/eduarte/linux-tweet-app'
