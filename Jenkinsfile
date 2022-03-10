@@ -25,7 +25,7 @@ pipeline {
     stage('Deploy image') {
       steps {
         script {
-          docker.withRegistry( '', 'Amazon ECR Registry:ecr:aws_cloudacia-US_EAST_1' ) {
+          docker.withRegistry( '', registryCredential ) {
             DockerImage.push()
           }
         }
