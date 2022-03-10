@@ -38,31 +38,31 @@ pipeline {
       }
     }
 
-    stage('Anallyze image with Anchore'){
-      steps {
-        writeFile file: 'anchore_images', text: imageLine + ":$BUILD_NUMBER"
-        anchore name: 'anchore_images'
-      }
-    }
+  //  stage('Anallyze image with Anchore'){
+  //    steps {
+  //      writeFile file: 'anchore_images', text: imageLine + ":$BUILD_NUMBER"
+  //      anchore name: 'anchore_images'
+  //    }
+  //  }
 
-    stage('Pull scanned image') {
-      steps {
-        script {
-          docker.withRegistry( '', registryCredential ) {
-            image = docker.image(registry + ":$BUILD_NUMBER")
-            image.pull()
-          }
-        }
-      }
-    }
+  //  stage('Pull scanned image') {
+  //    steps {
+  //      script {
+  //        docker.withRegistry( '', registryCredential ) {
+  //          image = docker.image(registry + ":$BUILD_NUMBER")
+  //          image.pull()
+  //        }
+  //      }
+  //    }
+  //  }
 
-    stage('Push scanned image') {
-      steps {
-        script {
-          docker.withRegistry( '', registryCredential ) {
-          image.push('trusted')
-          }
-        }
+  //  stage('Push scanned image') {
+  //    steps {
+  //      script {
+  //        docker.withRegistry( '', registryCredential ) {
+  //        image.push('trusted')
+  //        }
+  //      }
       }
     }
   }
