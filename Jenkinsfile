@@ -25,7 +25,7 @@ pipeline {
     stage('Deploy image') {
       steps {
         script {
-          docker.withRegistry( '573869740900.dkr.ecr.us-east-1.amazonaws.com/cloudcia-dev', 'ecr:aws_cloudacia' ) {
+          docker.withRegistry( '573869740900.dkr.ecr.us-east-1.amazonaws.com/cloudcia-dev', 'ecr:aws_cloudacia-US_EAST_1' ) {
             DockerImage.push()
           }
         }
