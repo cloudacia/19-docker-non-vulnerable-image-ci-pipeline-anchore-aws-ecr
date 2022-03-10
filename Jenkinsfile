@@ -1,6 +1,6 @@
 pipeline {
   environment {
-    //registryCredential = 'aws_cloudacia'
+    registryCredential = 'dockerhub-registry'
     registry = 'eduarte/linux-tweet-app'
     dockerImage = ''
     imageLine = 'docker.io/eduarte/linux-tweet-app'
@@ -25,7 +25,7 @@ pipeline {
     stage('Deploy image') {
       steps {
         script {
-          docker.withRegistry( '573869740900.dkr.ecr.us-east-1.amazonaws.com/cloudcia-dev', 'Amazon ECR Registry:ecr:aws_cloudacia-US_EAST_1' ) {
+          docker.withRegistry( '', 'Amazon ECR Registry:ecr:aws_cloudacia-US_EAST_1' ) {
             DockerImage.push()
           }
         }
